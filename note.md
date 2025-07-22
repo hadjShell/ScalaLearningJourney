@@ -10,48 +10,24 @@
   * It’s a functional programming (FP) language
   * It’s an object-oriented programming (OOP) language
   * It supports the fusion of FP and OOP
-  * Contextual abstractions provide a clear way to implement *term inference*
   * It runs on the JVM (and in the browser)
   * It interacts seamlessly with Java code
   * It’s used for server-side applications (including microservices), big data applications, and can also be used in the browser with Scala.js
-* Scala 3 REPL (read-eval-print loop)
-  * A command-line interpreter
-  * Command `scala` to open it
+* REPL (read-eval-print loop)
+  * A command-line interpreter / a language shell
+  * A simple, interactive computer programming environment that takes single user inputs (i.e. single expression), evaluates them, and returns the result to the user
+  * A program written in a REPL is executed piecewise
+  * Scala repl, ammonite repl
+  * Command `scala` or `amm` to open it
 * Scala worksheets
   * A worksheet is a Scala file that is evaluated on save, and the result of each expression is shown in a column to the right of your program
   * Worksheets use the extension `.worksheet.sc`
 
-## Variables and Data Types
+***
 
-* All values have a type
+## Data and Variable Types
 
-* ![hierarchy](imgs/hierarchy.svg)
-
-* `Any`
-
-  * The supertype of all types, also called the **top type**
-  * It defines certain universal methods such as `equals`, `hashCode`, and `toString`
-
-* `Matchable`
-
-  * Used to mark all types that we can perform pattern matching on
-
-* `AnyVal` 
-
-  * Value types
-  * `Byte`, `Int`, `Long`, `Short`, `Double`, `Float`, `Char`, `Unit`, `Boolean`
-  * Default numeric types
-    * `Int`, `Double`
-  * You can append the characters `L`, `D`, and `F` (and their lowercase equivalents) to numbers to specify that they are `Long`, `Double`, or `Float` values
-  * `Unit`
-    * A value type which carries no meaningful information
-    * There is exactly one instance of `Unit` which we can refer to as: `()`
-    * If you write methods in Scala that have no return value, `Unit` is used for the same purpose as `void`
-
-* `AnyRef`
-
-  * Reference type
-  * Correspond to `java.lang.Object`
+* **All values** have a **type** (**even for so-called primitive type**)
 
 * Two types of variables
 
@@ -68,9 +44,7 @@
     val x = 1        // implicit; the compiler infers the type
     ```
 
-  * Type inferenece
-
-    * The Scala compiler can usually infer the data type for you
+  * The Scala compiler can usually infer the data type for you
 
   * You can always explicitly declare a variable’s type if you prefer
 
@@ -94,6 +68,33 @@
     val z: Long = y  // Error
     ```
 
+* ![hierarchy](imgs/hierarchy.svg)
+
+* `Any`
+
+  * The supertype of all types, also called the **top type**
+  * It defines certain universal methods such as `equals`, `hashCode`, and `toString`
+
+* `Matchable`
+
+  * Used to mark all types that we can perform pattern matching on
+
+* `AnyVal` 
+
+  * Value types
+  * `Byte`, `Int`, `Long`, `Short`, `Double`, `Float`, `Char`, `Unit`, `Boolean`
+  * Default numeric types: `Int`, `Double`
+  * You can append the characters `L`, `D`, and `F` (and their lowercase equivalents) to numbers to specify that they are `Long`, `Double`, or `Float` values
+  * `Unit`
+    * A value type which carries no meaningful information
+    * There is exactly one instance of `Unit` which we can refer to as: `()`
+    * If you write methods in Scala that have no return value, `Unit` is used for the same purpose as `void`
+
+* `AnyRef`
+
+  * Reference type
+  * Correspond to `java.lang.Object`
+
 * `Nothing`
 
   * A subtype of all types, also called the **bottom type**
@@ -106,7 +107,9 @@
   * It has a single value identified by the keyword literal `null`
   * Currently, the usage of `null` is considered bad practice
 
-## `String`
+***
+
+## String
 
 * Similar to Java String
 
@@ -189,3 +192,75 @@
 
 ## Control Structures
 
+## OOP
+
+* ```scala
+  // class
+  case class Student(var rollno : Int = 1, var name : String = "John", var marks : Int = 90) {
+    // method
+    def show() = {
+      println("Hi");
+    }
+    
+    def >(s : Student) : Boolean = marks > s.marks
+  }
+  
+  // objects
+  val s1 = Student(marks = 80)
+  val s2 = Student(name = "David")
+  
+  s1.show()
+  s1 > s2
+  ```
+
+* 
+
+## Method
+
+* **Everything is a method** (**No operators**)
+
+  * ```scala
+    1 + 2
+    // + is actually a method
+    1.+(2)
+    ```
+
+* foo
+
+***
+
+## List and Lambda Expression
+
+* ```scala
+  val nums = List(1, 2, 3, 4, 5, 6)
+  for (n <- nums) println(n)
+  nums.foreach{ (n : Int) => println(n) }
+  
+  nums.reverse	// reverse list, return a new list
+  nums.drop(2).take(2)	// remove first 2 elements, take next 2 elements
+  
+  nums drop 2	// also valid
+  
+  nums.head
+  nums.tail
+  
+  nums.filter(n => n > 1) 
+  
+  nums.partition(n => n > 2)
+  ```
+
+* ```scala
+  // tuple
+  // in scala we can return multiple values
+  val parts = nums.partition(n => n > 2)
+  
+  val p1 = parts._1
+  val p2 = parts._2
+  
+  // or
+  val (p1, p2) = nums.partition(n => n > 2)
+  ```
+
+* 
+
+***
